@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Mapping the Stacks in EDS and VuFind - C4LMW Presentation</title>
+
+		<meta name="description" content="An intro to the adaptation of NaviStax for VuFind and EBSCO's EDS">
+		<meta name="author" content="Bill McMillin">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+					<section data-background="img/stacks2.png">
+
+					<h1>Mapping the Stacks in EDS and VuFind</h1>
+					<h3></h3>
+					<p>
+						<small>Bill McMillin</a> / <a href="http://www.billmcmillin.com">billmcmillin.com</a></small><br />
+						<small>Digital Metadata Librarian,</a> <a href="http://libraries.uc.edu/">University of Cincinnati Libraries</a></small><br />
+
+					</p>
+				</section>
+
+
+				<section>
+					<h2>Needs Analysis</h2>
+					<p>
+						The problem: Items move, maps become outdated. Partial solutions:
+					</p>
+					<ul>
+						<li>Automate updates</li>
+						<li>Require minimal technical skill to perform updates</li>
+						<li>Leave logic untouched during update process</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>NaviStax</h2>
+					<h3>An open-source collection of scripts to address these issues
+					</h3>
+					<ul>
+						<li>For the DIYer</li>
+						<li>Less reinvention of the wheel</li>
+						<li>Moving towards full automation of the update process</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Modules</h2>
+					<img src="img/struct.png" />
+				</section>
+
+				<section>
+					<h2>The non-programmer's perspective</h2>
+					<img src="img/ranges.png" />
+				</section>
+
+				<section>
+					<h2>The image editor's perspective</h2>
+					<ul>
+						<li>Change text in background image</li>
+						<li>Use saved script to replace background in all images in folder</li>
+					</ul>
+					<img src ="img/update.png" />
+				</section>
+
+				<section>
+					<h2>The sysadmin's perspective</h2>
+					<ul>
+						<li>Run generate.py</li>
+						<li>Upload files</li>
+						<li>< 1 minute of work</a>
+					</ul>
+				</section>
+				<section>
+					<h2>Generate.py</h2>
+					<h3>The workhorse</h3>
+					<ol>
+						<li>Run each call number in spreadsheet through formatting algorithm - adapted from Koha's sorting algorithm</li>
+						<li>Output index.php or getMap.php file with each location/shelf range as an object</li>
+						<li>Append logic and display code</li>
+					</ol>
+				</section>
+
+
+				<section>
+					<h2>The EBSCO Discovery Service implementation</h2>
+					<h3>Constraints</h3>
+					<ul>
+						<li>Scripts OK, but must work around many other scripts</li>
+						<li>Everything must be hosted externally</li>
+						<li>Extra testing required by EBSCO - but they're very helpful</li>
+					</ul>
+				</section>
+
+
+				<section>
+					<h2>The EDS structure</h2>
+					<img src="img/eds_struct.png" />
+				</section>
+
+				<section>
+					<h2>The EDS Implementation</h2>
+					<h3>Keeping it up-to-date</h3>
+					<ul>
+						<li>Set-up is more complex, but updating is simple</li>
+						<li>Same spreadsheet and image scripts</li>
+						<li>Run generate.py and upload all files - may need to send to EBSCO</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>The Logic</h2>
+					<h3>For EDS/VuFind</h3>
+					<ul>
+						<li>Each range is an object with call number, location, note attributes. Put all location objects in an array</li>
+						<li>JavaScript in EDS widget gets consortial ID # of item</li>
+						<li>When "Find on a Map" button is clicked, intermediate interface is presented to show all copies</li>
+						<li>When an item is chosen, ID # is sent to VuFind function in AJAX request</li>
+						<li>Return value is parsed, values put into JSON</li>
+						<li>Object is compared to objects in array and when a match is found, image and info are displayed</li>
+					</ul>
+				</section>
+
+			
+
+
+				<section data-background="img/stacks2.png">
+					<h2>Questions?</h2>
+				
+					<ul>
+						<li>The code and examples (a work in progress): <a href="https://github.com/billmcmillin/navistax">GitHub Repo</a></li>
+						<li>The slides: <a href="http://github.com/billmcmillin/c4lmw/">http://github.com/billmcmillin/c4lmw/</a></li>
+						<li>william.mcmillin@uc.edu</li>
+
+					</ul>
+				</section>
+				<!-- Acknowledgements  -->
+
+				
+
+			
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
