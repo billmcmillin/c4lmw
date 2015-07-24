@@ -51,11 +51,18 @@
 					</p>
 				</section>
 
+				<section>
+					<h2>Maps of the stacks in the catalog</h2>
+					<p>
+						Many libraries have implemented different versions
+					</p>
+					<p><img src="img/eds_3.png" /></p>
+				</section>
 
 				<section>
 					<h2>Needs Analysis</h2>
 					<p>
-						The problem: Items move, maps become outdated. Partial solutions:
+						The problem: Items move, maps become outdated.<br /> Partial solutions:
 					</p>
 					<ul>
 						<li>Automate updates</li>
@@ -118,9 +125,58 @@
 					<h3>Constraints</h3>
 					<ul>
 						<li>Scripts OK, but must work around many other scripts</li>
-						<li>Everything must be hosted externally</li>
+						<li>Everything must be hosted externally (at least is this version)</li>
 						<li>Extra testing required by EBSCO - but they're very helpful</li>
 					</ul>
+				</section>
+
+
+				<section>
+					<h2>Step 1</h2>
+					<p>Get bib id # and make sure it's a local resource with JQuery on load.</p>
+					<code>quot;term&quot;:&quot;milner.1266189&quot;,&quot;resultListId</code>
+				</section>
+
+
+				<section>
+					<h2>Step 2</h2>
+					<p>Display link that calls intermediate page</p>
+					<p><img src="img/eds_link.png" /></p>
+				</section>
+
+
+				<section>
+					<h2>Step 3</h2>
+					<p>When link is clicked, display intermediate page.</p>
+					<p><img src="img/eds_int_page.png" /></p>
+				</section>
+
+
+				<section>
+					<h2>Step 4</h2>
+					<p>When item link is clicked, call formURL.php and pass ID #</p>
+					<code>    	$url = 'http://vufind.carli.illinois.edu/vf-isu/Record/AJAX?method=GetHoldings&id=isu_' . $id;
+					</code>
+				</section>
+
+
+				<section>
+					<h2>Step 5</h2>
+					<p>Send call to server, parse result</p>
+					<p>			
+
+					<code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;AJAXResponse&gt;
+&lt;result&gt;&lt;![CDATA[&lt;table class=&quot;holdingsdata&quot;&gt;&lt;tr class=&quot;evenrow&quot;&gt;&lt;td class=&quot;col1&quot;&gt;Location:&amp;nbsp; &lt;/td&gt;&lt;td class=&quot;col2&quot;&gt;Zimmerman Library, Metcalf School Nonfiction&lt;/td&gt;&lt;/tr&gt;
+&lt;tr class=&quot;oddrow&quot;&gt;&lt;td valign=&quot;top&quot; class=&quot;col1&quot;&gt;Call Number:&amp;nbsp; &lt;/td&gt;&lt;td class=&quot;col2&quot;&gt;811.54 LYO&lt;br/&gt;&lt;a target=&quot;_blank&quot; href=&quot;&quot;onclick=&quot;showSmsForm('Book+%...&gt;&lt;/result&gt;&lt;/AJAXResponse&gt;
+					</code>
+				</section>
+
+
+				<section>
+					<h2>Step 6</h2>
+					<p>Parse response and display correct map.</p>
+					<p><img src="img/eds_3.png" /></p>
 				</section>
 
 
@@ -133,8 +189,7 @@
 					<h2>The EDS Implementation</h2>
 					<h3>Keeping it up-to-date</h3>
 					<ul>
-						<li>Set-up is more complex, but updating is simple</li>
-						<li>Same spreadsheet and image scripts</li>
+						<li>Setup is more complex than static catalog link, but updating is simple</li>
 						<li>Run generate.py and upload all files - may need to send to EBSCO</li>
 					</ul>
 				</section>
